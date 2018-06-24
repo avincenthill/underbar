@@ -170,7 +170,7 @@
   //
   // Example:
   //   var numbers = [1,2,3];
-  //   var sum = _.reduce(numbers, function(total, number){
+  //   var sum = _.reduce(numbers, function(total <memo>, number <item>){
   //     return total + number;
   //   }, 0); // should be 6
   //
@@ -179,8 +179,27 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    //TBD
+    for (let i = 0, length = collection.length; i < length; i++) {
+      if (accumulator === undefined && i === 0) {
+        accumulator = collection[0];
+        i++;
+      }
+      accumulator = iterator(accumulator, collection[i]);
+    }
+    return accumulator;
   };
+
+  // it("should pass every item of the array into the iterator if a memo is passed in", function() {
+  //   var result = _.reduce(
+  //     [1, 2, 3],
+  //     function(memo, item) {
+  //       return memo - item;
+  //     },
+  //     10
+  //   );
+
+  //   expect(result).to.equal(4);
+  // });
 
   //END OF HR PRECOURSE PART 1
 
