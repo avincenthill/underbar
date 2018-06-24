@@ -113,15 +113,18 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-    let results = [];
+    var result = [];
 
-    for (let i = 0; i < array.length; i++) {
-      if (!results.includes(array[i])) {
-        results.push(array[i]);
+    _.filter(array, function(value, index, array) {
+      if (_.indexOf(result, value) === -1) {
+        iterator
+          ? iterator(value)
+            ? result.push(value)
+            : null
+          : result.push(value);
       }
-    }
-
-    return results;
+    });
+    return result;
   };
 
   // Return the results of applying an iterator to each element.
@@ -129,7 +132,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-    //TBD
+    var results = [];
+    for (let i = 0, length = collection.length; i < length; i++) {
+      results.push(iterator(collection[i]));
+    }
+    return results;
   };
 
   /*
@@ -141,6 +148,7 @@
   // Takes an array of objects and returns and array of the values of
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
+
   _.pluck = function(collection, key) {
     // TIP: map is really handy when you want to transform an array of
     // values into a new array of values. _.pluck() is solved for you
@@ -174,7 +182,7 @@
     //TBD
   };
 
-  //TBD END OF HR PRECOURSE PART 1
+  //END OF HR PRECOURSE PART 1
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {

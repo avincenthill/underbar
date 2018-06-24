@@ -358,14 +358,13 @@
           return value === 1;
         };
         var numbers = [1, 2, 2, 3, 4, 4];
-        //not sure what to do here
-        expect(_.uniq(FILL_ME_IN).to.equal([1, 2]));
+
+        expect(_.uniq(numbers, true, iterator)).to.eql([1]);
       });
 
       it("should produce a brand new array instead of modifying the input array", function() {
         var numbers = [1, 2, 1, 3, 1, 4];
         var uniqueNumbers = _.uniq(numbers);
-
         expect(uniqueNumbers).to.not.equal(numbers);
       });
     });
