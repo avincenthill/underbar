@@ -191,8 +191,10 @@
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
-    // TIP: Many iteration problems can be most easily expressed in
-    // terms of reduce(). Here's a freebie to demonstrate!
+    if (!Array.isArray(collection)) {
+      collection = Object.values(collection);
+    }
+
     return _.reduce(
       collection,
       function(wasFound, item) {
@@ -207,15 +209,23 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
-      //TBD
+    if (typeof iterator != "function") {
+      iterator = function(value) {
+        return value;
+      };
+    }
+    return _.reject(collection, iterator).length === 0;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
-      //TBD
+    if (typeof iterator != "function") {
+      iterator = function(value) {
+        return value;
+      };
+    }
+    return _.reject(collection, iterator).length != collection.length;
   };
 
   /**
@@ -238,6 +248,7 @@
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {};
   //TBD
+
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {};
