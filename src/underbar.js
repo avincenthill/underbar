@@ -247,34 +247,27 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    //TBD
+    let args = Array.from(arguments);
+    for (let i = 0; i < arguments.length; i++) {
+      for (var key in args[i]) {
+        args[0][key] = args[i][key];
+      }
+    }
+    return args[0];
   };
-
-  //from underscore.js
-
-  //  // An internal function for creating assigner functions.
-  //  var createAssigner = function(keysFunc, defaults) {
-  //   return function(obj) {
-  //     var length = arguments.length;
-  //     if (defaults) obj = Object(obj);
-  //     if (length < 2 || obj == null) return obj;
-  //     for (var index = 1; index < length; index++) {
-  //       var source = arguments[index],
-  //           keys = keysFunc(source),
-  //           l = keys.length;
-  //       for (var i = 0; i < l; i++) {
-  //         var key = keys[i];
-  //         if (!defaults || obj[key] === void 0) obj[key] = source[key];
-  //       }
-  //     }
-  //     return obj;
-  //   };
-  // };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-    //TBD
+    let args = Array.from(arguments);
+    for (let i = 0; i < arguments.length; i++) {
+      for (var key in args[i]) {
+        if (!(key in args[0])) {
+          args[0][key] = args[i][key];
+        }
+      }
+    }
+    return args[0];
   };
 
   /**
@@ -344,7 +337,23 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    //TBD
+    //from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    }
+
+    let toBeShuffled = array.slice(0, array.length);
+    let shuffled = [];
+
+    for (let i = 0; i < array.length; i++) {
+      let randomIndex = getRandomInt(0, toBeShuffled.length);
+      shuffled.push(toBeShuffled[randomIndex]);
+      toBeShuffled.splice(randomIndex, 1);
+    }
+
+    return shuffled;
   };
 
   /**
