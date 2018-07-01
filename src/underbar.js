@@ -246,12 +246,36 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj) {};
-  //TBD
+  _.extend = function(obj) {
+    //TBD
+  };
+
+  //from underscore.js
+
+  //  // An internal function for creating assigner functions.
+  //  var createAssigner = function(keysFunc, defaults) {
+  //   return function(obj) {
+  //     var length = arguments.length;
+  //     if (defaults) obj = Object(obj);
+  //     if (length < 2 || obj == null) return obj;
+  //     for (var index = 1; index < length; index++) {
+  //       var source = arguments[index],
+  //           keys = keysFunc(source),
+  //           l = keys.length;
+  //       for (var i = 0; i < l; i++) {
+  //         var key = keys[i];
+  //         if (!defaults || obj[key] === void 0) obj[key] = source[key];
+  //       }
+  //     }
+  //     return obj;
+  //   };
+  // };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj) {};
+  _.defaults = function(obj) {
+    //TBD
+  };
 
   /**
    * FUNCTIONS
@@ -292,16 +316,23 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
-  _.memoize = function(func) {};
-  //TBD
+  _.memoize = function(func) {
+    //TBD
+  };
+
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   //
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function(func, wait) {};
-  //TBD
+  _.delay = function(func, wait) {
+    let args = Array.from(arguments).slice(2);
+    return setTimeout(function() {
+      return func.apply(null, args);
+    }, wait);
+  };
+
   /**
    * ADVANCED COLLECTION OPERATIONS
    * ==============================
@@ -312,9 +343,9 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
-  _.shuffle = function(array) {};
-
-  //TBD
+  _.shuffle = function(array) {
+    //TBD
+  };
 
   /**
    * ADVANCED
