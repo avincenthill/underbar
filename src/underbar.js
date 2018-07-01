@@ -310,7 +310,27 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    //TBD
+    //
+
+    let memoize = function() {
+      var cache = memoize.cache;
+      let args = Array.from(arguments);
+      // console.log(args);
+
+      if (JSON.stringify(args) in cache) {
+        // console.log(cache, "argsincache");
+        return cache[args];
+      } else {
+        let result = func.apply(this, args);
+        cache[JSON.stringify(args)] = result;
+        // console.log(cache, "argsNOTincache");
+        return result;
+      }
+    };
+
+    //
+    memoize.cache = {};
+    return memoize;
   };
 
   // Delays a function for the given number of milliseconds, and then calls
